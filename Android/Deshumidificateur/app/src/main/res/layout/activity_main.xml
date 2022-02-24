@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- text to be displayed whenever current state is checked-->
+
+    <ImageView
+        android:id="@+id/btn_power"
+        android:layout_width="@dimen/size_image_width"
+        android:layout_height="@dimen/size_image_height"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="143dp"
+        android:contentDescription="@string/btn_power"
+        android:src="@mipmap/btn_power_on"
+        />
+
+    <Switch
+        android:id="@+id/switch_power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/size_marging_left"
+        android:checked="false"
+        android:scaleX="@dimen/scaleX"
+        android:scaleY="@dimen/scaleY"
+        android:textOff="@string/switch_power_textOff"
+        android:textOn="@string/switch_power_textOn"
+        android:thumb="@mipmap/ic_launcher"
+        android:track="@drawable/custom_switch_power"
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        />
+
+    <SeekBar
+        android:id="@+id/seekBar_fan"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/size_marging_left"
+        android:layout_toEndOf="@id/switch_power"
+        android:maxHeight="@dimen/size_seekBar_height"
+        android:max="100"
+        android:paddingStart="25dp"
+        android:progress="0"
+        android:progressDrawable="@drawable/custom_seekbar_fan"
+        android:thumb="@mipmap/ic_launcher"
+        tools:ignore="RtlSymmetry"
+        />
+
+</RelativeLayout>
