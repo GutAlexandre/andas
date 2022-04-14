@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TextViews -->
+    <dimen name="size_title">25sp</dimen>
+    <dimen name="padding_title">40dip</dimen>
+    <!-- Images -->
+    <dimen name="size_image_height">75dip</dimen>
+    <dimen name="size_image_width">@dimen/size_image_height</dimen>
+    <!-- Padding -->
+    <dimen name="size_padding_left">60sp</dimen>
+    <dimen name="size_padding_right">@dimen/size_padding_left</dimen>
+    <!-- Marging -->
+    <dimen name="size_marging_left">10sp</dimen>
+    <dimen name="size_marging_right">@dimen/size_marging_left</dimen>
+    <!-- SeekBar size -->
+    <dimen name="size_seekBar_height">40dp</dimen>
+    <dimen name="size_seekBar_width">@dimen/size_seekBar_height</dimen>
+</resources>
