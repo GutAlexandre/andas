@@ -1,0 +1,14 @@
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  font-family: "Lucida Sans", sans-serif;
+  	background-color:#cccccc;
+}
+
+#icon {
+  width:60px;
+}
+#submit{
+	color: linear-gradient(90deg,PowderBlue, Crimson);
+	}

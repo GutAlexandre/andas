@@ -1,0 +1,52 @@
+body { padding: 50px; }
+
+/* animation crée */
+@keyframes slider_right{
+	from {
+		width: 80px;
+	}
+	to{
+		width: 100%;
+		content: "true";
+		content-visibility: visible;
+	}
+
+}
+
+
+
+/* utilisation */
+
+.button {
+	position:relative;
+    height: 100%;
+    width: 100px;
+	display:flex;
+	text-align:center;
+	color:white;
+	padding-left: 100px;
+	padding-right: 60px;	
+	  
+}
+.background {
+	position:absolute;
+	top: 25px;
+	left:0;
+	transform: translateY(-50%);
+	width: 80px;
+	height: 80px;
+	background: black;
+	border-radius : 80px;
+
+}
+
+
+.background:hover{
+	cursor: pointer;
+	animation: 1s slider_right forwards;
+
+}
+
+
+
+

@@ -1,3 +1,11 @@
+<?php
+
+	if(@$_COOKIE["auth"] != hash("sha256", "root"."Andas") ){
+		header("Location: /index.html");
+	}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +13,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Andas</title>
-	<link rel="stylesheet" href="bootstrap.min.css">
-	<link rel="stylesheet" href="main.css" type="text/css" media="screen">
-	<script src="jquery-3.6.0.min.js"></script>
-	<script src="bootstrap.bundle.min.js"></script>
-	<script src="main.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/main.js"></script>
 
 </head>
 <body>
@@ -25,18 +33,18 @@
 					<div class="modal-header">
 						<p>
 							<img id="logo" src="ressources\img\Logo.png"></img>
-							<class="text-left">Andas 
+							<text id="nom" class="text-left">Andas 
 								
 							<div id="current_date">
-							<script>
-								date = new Date();
-								year = date.getFullYear();
-								month = date.getMonth() + 1;
-								day = date.getDate();
-								document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
-							</script>
-							<img id="weather"></img>
-							<div id="current_weather"></div>
+								<script>
+									date = new Date();
+									year = date.getFullYear();
+									month = date.getMonth() + 1;
+									day = date.getDate();
+									document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
+								</script>
+								<img id="weather"></img>
+								<div id="current_weather"></div>
 							</div>
 							
 						
@@ -68,27 +76,40 @@
 							<div class="slideThree" >
 								<input type="checkbox" value="None" id="slideThree" name="check" style='visibility:hidden' />
 								<label for="slideThree" ></label>
+								<p id="State" style="inline-block; color:green;" >Déshumidificateur ON</p>	
 							</div>
-							<p id="State" style="inline-block; color:green;" >Déshumidificateur ON</p>	
+							
 							
 						</div>
-						<span class="vertical-line1"></span>
-						<hr>
+						<div class="vertical-line1"></div>
+						<div class="hline-bottom"></div>
+						<div class="part12">
+							<label id="ventil" for="customRange3" class="form-label">Ventilation</label>
+							<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+						</div>
+						<div class="hline-bottom-v-t"></div>
+						
 						</br>
 						<!-------------------->
 						<!-- partie Capteur -->
 						<!-------------------->
 						<div class="part2">
-							
+							<div class="vertical-line1"></div>
+								
 						</div>
-						<hr>
+						<div class="part22">
+							<label id="ventil" for="customRangetemp" class="form-label">Temperature</label>
+							<input type="range" class="form-range " min="0" max="100" step="0.1" id="customRangetemp">
+						</div>
+						<div class="vertical-line1"></div>
+						<div class="hline-bottom"></div>
+						
 						
 						<!-------------------->
 						<!-- partie Control -->
 						<!-------------------->
 						
 										
-						<hr>
 						</br>
 						<!-------------------->
 						<!-- partie Stat ----->

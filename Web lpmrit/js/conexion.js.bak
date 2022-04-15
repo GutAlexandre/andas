@@ -1,0 +1,21 @@
+
+$(document).ready(function() { 
+	$("#verifpass").click(function(){
+		var login = document.getElementById("login");
+		var mdp = document.getElementById("Password");
+		
+		if (login == 1221){
+			console.log("ou");
+		} 
+	});
+	
+	$("#ShowPWD").click( function() {
+		var x = document.getElementById("#InputPWD");
+		alert(x.type);
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	});
+});
