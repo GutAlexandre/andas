@@ -1,4 +1,8 @@
 
+body {
+	font-family: "Lucida Sans", sans-serif;
+  	background-color:#cccccc;
+}
 
 #current_date{
 	text-align: center;
@@ -6,11 +10,18 @@
 }
 
 
-#logo{
-	max-width:10%;
+
+#nom{
+	text-align: left;
+	font-size: 100%;
 }
+
+#logo{
+	width:60px;
+}
+
 #weather{
-	max-width:45%;
+	max-width:50%;
 }
 #dropdownMenuButton1{
 	min-width:100%;
@@ -27,18 +38,41 @@
 	font-size: 150%;
 	font-family: "Lucida Sans", sans-serif;
 	font-weight: 900;
-	margin-left: -70%;
+	margin-left: -80%;
 	margin-top : 25%;
 	
 }
 
+#ventil{
+	
+	font-size: 150%;
+	font-family: "Lucida Sans", sans-serif;
+	font-weight: 900;
+	margin-right:10%;
+
+}
+#modalabout{
+	background-color:rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+#modalsettings{
+	background-color:rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body{
+
+	
+}
 /* SLIDE THREE */
 .slideThree {
 	width: 120px;
 	height: 50px;
 	background: linear-gradient(45deg,MediumOrchid, blue);
 	font-family: "Lucida Sans", sans-serif;
-	margin: 2% 17%;
+	
 	
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
@@ -119,10 +153,97 @@
 		position: relative;
         border-left: 2px solid #000;
         display: inline-block;
-        height: 170px;
-		margin-top: -8%;
-		margin-left: 50%;
-		
-		
+        
+		min-height: 15%;
+		margin-bottom: -1%;
+		margin-left: 50%;	
+		display:none;
 		
 }
+.hline-bottom {
+    padding-bottom: 15%;
+    border-bottom: 2px solid #000; /* whichever color you prefer */
+}
+
+.hline-bottom-v-t {
+    padding-bottom: 3%;
+    border-bottom: 2px solid #000; /* whichever color you prefer */
+}
+.part1{
+	margin-top:2%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	
+}
+
+.part12{
+	margin-top:2%;
+}
+
+#customRangetemp{
+	font: linear-gradient(90deg,PowderBlue, Crimson);
+	height:10px;
+}
+
+
+
+@media only screen and (min-width: 430px) {
+	 /* For tablette: */
+	.hline-bottom {
+		padding-bottom: 8%;
+	}
+	#ventil{
+		margin-left:43%;
+	}
+ }
+ 
+ 
+ 
+@media only screen and (min-width: 970px) {
+  /* For desktop: */
+	#logo{width: 75px;}
+	.hline-bottom-v-t{display:none;}
+	#nom{
+		text-align: left;
+		font-size: 120%;
+	}
+	#current_date{
+		text-align: center;
+		font-size: 120%;
+		margin-left:50%; 
+	}
+	#ventil{
+		margin-left:40%;
+	}
+	
+	.part1{
+		position: relative;
+		margin-right:50%;
+		margin-top:2%;
+	}
+	
+	.part22{
+		margin-left:5%;
+		margin-top:2%;
+		max-width:40%;
+	}
+	
+	.dropdown{	margin-left:5%;
+				
+			}
+	.vertical-line1{
+		display:inline-block;
+		margin-top: -6%;
+	}
+	.hline-bottom {
+		padding-bottom: 2%;
+	}
+	.part12{
+		max-width:40%;
+		margin-left:55%;
+		margin-top:-7%;
+	}
+ }
+ 
+ 
