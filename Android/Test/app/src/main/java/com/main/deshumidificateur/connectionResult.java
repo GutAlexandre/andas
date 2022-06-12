@@ -3,7 +3,7 @@ package com.main.deshumidificateur;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BddResult {
+public class connectionResult {
 
     @SerializedName("id")
     @Expose
@@ -29,7 +29,7 @@ public class BddResult {
         this.id = id;
     }
 
-    public BddResult withId(String id) {
+    public connectionResult withId(String id) {
         this.id = id;
         return this;
     }
@@ -42,7 +42,7 @@ public class BddResult {
         this.ssid = ssid;
     }
 
-    public BddResult withSsid(String ssid) {
+    public connectionResult withSsid(String ssid) {
         this.ssid = ssid;
         return this;
     }
@@ -55,7 +55,7 @@ public class BddResult {
         this.mdpWifi = mdpWifi;
     }
 
-    public BddResult withMdpWifi(String mdpWifi) {
+    public connectionResult withMdpWifi(String mdpWifi) {
         this.mdpWifi = mdpWifi;
         return this;
     }
@@ -68,7 +68,7 @@ public class BddResult {
         this.login = login;
     }
 
-    public BddResult withLogin(String login) {
+    public connectionResult withLogin(String login) {
         this.login = login;
         return this;
     }
@@ -81,7 +81,7 @@ public class BddResult {
         this.mdpUser = mdpUser;
     }
 
-    public BddResult withMdpUser(String mdpUser) {
+    public connectionResult withMdpUser(String mdpUser) {
         this.mdpUser = mdpUser;
         return this;
     }

@@ -2,20 +2,17 @@ package com.main.deshumidificateur;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
-import com.google.common.primitives.Chars;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -41,15 +38,10 @@ public class MainActivity extends AppCompatActivity {
         editTxt_passwd = findViewById(R.id.editTxt_passwd);
 
         btn_submit = findViewById(R.id.btn_submit);
-        btn_submit.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                login = editTxt_login.getText().toString();
-                password = editTxt_passwd.getText().toString();
-                getUser(login, password);
-            }
+        btn_submit.setOnClickListener(v -> {
+            login = editTxt_login.getText().toString();
+            password = editTxt_passwd.getText().toString();
+            getUser(login, password);
         });
     }
 
@@ -60,37 +52,39 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         BddAPI service = retrofit.create(BddAPI.class);
-        Call<List<BddResult>> result = service.getUser();
-        result.enqueue(new Callback<List<BddResult>>() {
+        Call<List<connectionResult>> result = service.getUser();
+        result.enqueue(new Callback<List<connectionResult>>() {
             @Override
-            public void onResponse(Call<List<BddResult>> call, Response<List<BddResult>> response) {
+            public void onResponse(@NonNull Call<List<connectionResult>> call, @NonNull Response<List<connectionResult>> response) {
                 if (response.isSuccessful()) {
-                    List<BddResult> res = response.body();
+                    List<connectionResult> res = response.body();
                     assert res != null;
                     final HashFunction hf = Hashing.sha1();
                     HashCode hc = hf.newHasher()
                             .putString(login+password, StandardCharsets.UTF_8)
                             .hash();
-                    for(BddResult bddResult : res) {
+                    for(connectionResult bddResult : res) {
                         if(bddResult.getId().equals(hc.toString()))
                         {
                             Intent i = new Intent().setClass(getApplicationContext(), AppActivity.class);
                             Toast.makeText(getApplicationContext(), "Connexion", Toast.LENGTH_SHORT).show();
+                            i.putExtra("hc", hc.toString());
                             startActivity(i);
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(),
-                                    "Login ou mot de passe incorrect",
-                                    Toast.LENGTH_SHORT).show();
+                            System.out.println("t");
+                            //Toast.makeText(getApplicationContext(),
+                                    //"Login ou mot de passe incorrect",
+                                    //Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             }
             @Override
-            public void onFailure(Call<List<BddResult>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<connectionResult>> call, @NonNull Throwable t) {
                 System.out.println(t);
-                Toast.makeText(getApplicationContext(), "Server error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Server error", Toast.LENGTH_SHORT).show();
             }
         });
     }
