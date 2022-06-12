@@ -16,10 +16,13 @@
 /************************* Define variables *********************************/
 
 int i=0;
-String result,fichiername, ssid ,password ,login ,pwd ,Nxt,IpAdresse,header,response;
+String result,fichiername, ssid ,password ,login ,pwd ,Nxt,IpAdresse,header,response,hasha,url;
+char charBuf2[300];
 String statut = "0";
 long duration;
-float distanceCm;
+float distanceCm, moy_temp,moy_hum;
+float temp_moy[10] ={};
+float hum_moy[10] ={};
 const char* pass = NULL;
 const char* PARAM_1 = "SSID";
 const char* PARAM_2 = "WPA";
@@ -39,8 +42,9 @@ HTTPClient http;
 Adafruit_BME280 bme; // I2C
 #define SOUND_VELOCITY 0.034
 #define CM_TO_INCH 0.393701
-#define LED_Wifi 13
+#define LED_Wifi 3
 #define LED_EAU 2
+#define ventil 1
 /************************* Setup *********************************/
 
 //Setup
@@ -49,8 +53,9 @@ void setup() {
   Serial.println();
   pinMode(LED_Wifi, OUTPUT);
   pinMode(LED_EAU, OUTPUT);
-  digitalWrite(LED_Wifi, HIGH);   
-  digitalWrite(LED_EAU, HIGH);   
+  pinMode(ventil, OUTPUT);
+  digitalWrite(ventil, LOW); 
+  digitalWrite(LED_Wifi, LOW);   
 /************************* Check spiffs *********************************/
 
   if (!SPIFFS.begin())
@@ -86,10 +91,47 @@ void setup() {
     VerifID();
   }
 }
-  /************************* Not use for moment *********************************/
+  /************************* Envoie de donnée *********************************/
 
 void loop() {
- 
+  statu();
+  
+  float temperature = temp();
+  float humidity = humi();
+  char charBuf[300];
+  distanceCm = niv_eau();
+  //moyenne
+  for(int i = 9; i>=0;i--){
+    temp_moy[i] = temp_moy[i-1];
+    hum_moy[i] = hum_moy[i-1];
+  }
+  temp_moy[0] = temperature;
+  hum_moy[0] = humidity;
+  for(int i = 9; i>=0;i--){
+    moy_temp = moy_temp + temp_moy[i];
+    moy_hum = moy_hum + hum_moy[i-1];
+  }
+  moy_temp = moy_temp/10;
+  moy_hum = moy_hum/10;
+  hasha = lecture("/hash.txt");
+  result = "";
+  url = "http://87.91.26.207:80/api.php?save=";
+  url += hasha;
+  url += "&temp=";
+  url += temperature;
+  url += "&humidite=";
+  url += humidity;
+  url += "&niv_eau=";
+  url += distanceCm;
+  url += "&moy_humi=";
+  url += moy_hum;
+  url += "&moy_temp=";
+  url += moy_temp;
+  
+  Serial.print(url);
+  url.toCharArray(charBuf, 300);
+  response = httpGETRequest(charBuf);
+  delay(2000);
 }
 
 /************************* Spiffs use *********************************/
@@ -129,18 +171,21 @@ String VerifID(){
    Serial.println(pwd);
    Serial.println(response);
    String res =login + pwd;
-   String hasha = sha1(res);
+   hasha = sha1(res);
    Serial.println();
    Serial.println(hasha);
+   ecriture("/hash.txt",hasha);
+   String url;
+   char charBuf2[300];
+   char charBuf[300];
    
    if(response.indexOf(hasha) > 0){
       Serial.println("existe");
-      String url = "http://87.91.26.207:80/api.php?update=";
+      url = "http://87.91.26.207:80/api.php?update=";
       url += hasha;
       url += "&where=connexion&what=ssid&value=";
       url += ssid;
       Serial.print(url);
-      char charBuf[300];
       url.toCharArray(charBuf, 300);
       response = httpGETRequest(charBuf);
       url = "";
@@ -149,13 +194,12 @@ String VerifID(){
       url += "&where=connexion&what=mdp_wifi&value=";
       url += password;
       Serial.print(url);
-      char charBuf2[300];
       url.toCharArray(charBuf2, 300);
       response = httpGETRequest(charBuf2);//update le user
     
    }else
    {
-      String url = "http://87.91.26.207:80/api.php?add_login=";
+      url = "http://87.91.26.207:80/api.php?add_login=";
       url += hasha;
       url += "&ssid=";
       url += ssid;
@@ -166,7 +210,14 @@ String VerifID(){
       url += "&mdp_user=";
       url += pwd;
       Serial.print(url);
-      char charBuf[300];
+      
+      url.toCharArray(charBuf, 300);
+      response = httpGETRequest(charBuf);//Crée un user 
+      
+      //INSERT INTO log(id) VALUES("2f7acac6129a35354124ff9695cf4877e5030539");
+      url = "http://87.91.26.207:80/api.php?createid=";
+      url += hasha;
+      Serial.print(url);
       url.toCharArray(charBuf, 300);
       response = httpGETRequest(charBuf);//Crée un user 
    }
@@ -198,10 +249,11 @@ String connectToWiFi() {
     if (retries > 44) {
         Serial.println(F("WiFi connection FAILED"));
         statut = "FAILED";
+        digitalWrite(LED_Wifi, HIGH);
     }
     if (WiFi.status() == WL_CONNECTED) {
         Serial.println(F("WiFi connected!"));
-        digitalWrite(LED_Wifi, HIGH);   
+        digitalWrite(LED_Wifi, LOW);   
         Serial.println("IP address: ");
         Serial.println(WiFi.localIP());
     }
@@ -304,7 +356,7 @@ String httpGETRequest(const char* serverName) {
 
 /************************* Sensor *********************************/
 
-float Temp() {
+float temp() {
   Serial.print("Temperature = ");
   float temperature = bme.readTemperature();
   Serial.print(bme.readTemperature());
@@ -312,7 +364,7 @@ float Temp() {
   return(temperature);
 }
 
-float Hum(){
+float humi(){
   Serial.print("Humidity = ");
   float humidity = bme.readHumidity();
   Serial.print(bme.readHumidity());
@@ -330,4 +382,23 @@ float niv_eau(){
   Serial.print("Distance (cm): ");
   Serial.println(distanceCm);
   return(distanceCm);
+}
+
+void statu(){
+
+   Serial.println("existe");
+   url = "http://87.91.26.207:80/api.php?getcontent=statusVentil&where=status&hasha=";
+   url += hasha;
+   char charBuf[300];
+   url.toCharArray(charBuf, 300);
+   response = httpGETRequest(charBuf);
+   Serial.println(response);
+   if(response.indexOf("on")>0){
+    digitalWrite(ventil, LOW);
+    Serial.println("on");
+   }
+   if(response.indexOf("off")>0){
+    digitalWrite(ventil, HIGH);
+    Serial.println("off");
+   }
 }

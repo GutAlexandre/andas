@@ -11,7 +11,7 @@ $(document).ready(function() {
 							document.location.href="main.php"
 						});
 					}else{
-						console.log("nop");
+						alert("Login/Mot de passe incorect");
 					}
 				});
 			});

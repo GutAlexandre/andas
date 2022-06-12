@@ -106,7 +106,7 @@
 						<div class="hline-bottom"></div>
 						<div class="part12">
 							<label id="ventil" for="customRange3" class="form-label">Ventilation</label>
-							<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+							<input type="range" class="form-range" min="0" max="100" step="0.5" id="customRange3">
 						</div>
 						<div class="hline-bottom-v-t"></div>
 						
@@ -119,8 +119,8 @@
 								
 						</div>
 						<div class="part22">
-							<label id="ventil" for="customRangetemp" class="form-label">Temperature</label>
-							<input type="range" class="form-range " min="0" max="100" step="0.1" id="customRangetemp">
+							<label id="temp" for="customRangetemp" class="form-label">Temperature</label>
+							<input type="range" class="form-range " min="0" max="100" step="0.1" id="customRangetemp" disabled> 
 						</div>
 						<div class="vertical-line1"></div>
 						<div class="hline-bottom"></div>
@@ -182,29 +182,33 @@
 				   <!-- Modal body -->
 				   <div class="modal-body" >
 						<form action="" method="post" style="text-align:center">
-						  <div class="form-group">
+						<div class="form-group">
+							<label for="ssid">Ville</label></br>
+							<input type="text" class="form-control" title="Ville Invalide" id="ville"  aria-describedby="emailHelp" placeholder="Enter City"></input>
+						</div>
+						<div class="form-group">
 							<label for="ssid">SSID</label></br>
-							<input type="text" class="form-control" title="ssid Invalide" id="login" name="login" aria-describedby="emailHelp" placeholder="Enter SSID"></input>
-						  </div>
-						  <div class="form-group">
+							<input type="text" class="form-control" title="Ssid Invalide" id="login" name="login" aria-describedby="emailHelp" placeholder="Enter SSID"></input>
+						</div>
+						<div class="form-group">
 							<label for="InputWPA">Mot de passe WPA/WEP</label></br>
 							<input type="password" class="form-control" id="InputWPA" name="InputWPA" placeholder="Password"></input>
-						  </div>
-						  <div class="form-group">
+						</div>
+						<div class="form-group">
 							<label for="name">Nom de l'objet</label></br>
 							<input type="text" class="form-control" title="Name Invalide" id="name" name="name" aria-describedby="emailHelp" placeholder="Enter Name"></input>
-						  </div>
-						  <div class="form-group">
+						</div>
+						<div class="form-group">
 							<label for="InputPWD">Mot de passe objet</label></br>
 							<input type="password" class="form-control" id="InputPWD" name="InputPWD" placeholder="Password"></input>
-						  </div>
-						  <input type="checkbox" onclick="ShowPWD()">Show Passwords</input>
+						</div>
+						<input type="checkbox" onclick="ShowPWD()">Show Passwords</input>
 						
 							</br>
 							<hr>
 							</br>
 							<div class="d-grid gap-2">
-								<button id="Submit" type="Submit" class="btn btn-success btn-lg btn-block" ><h5>Submit</h5></button>
+								<button id="Submitopt" type="button" class="btn btn-success btn-lg btn-block" ><h5>Submit</h5></button>
 							</div>
 							<div class="toast" id="toast1" data-delay="2000" style="position: absolute; top: 1rem; right: 1rem; min-width:200px;" aria-live="assertive" aria-atomic="true">
 								<div class="toast-header">

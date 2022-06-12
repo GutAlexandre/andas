@@ -35,6 +35,7 @@ $(document).ready(function() {
 									if(data == "null"){
 										$.get( "/api.php?add_loginweb="+ $('#login').val() + $('#InputPWD2').val() +"&mdp_user=" + $('#InputPWD').val()+"&login="+ $('#login').val(), function( data ){
 											console.log(data);
+											$.get( "/api.php?createidweb="+ $('#login').val() + $('#InputPWD2').val(), function( data ){});
 											alert("Utilisateur  "+ $('#login').val()+ " créer");
 											document.location.href="index.php"
 										});
