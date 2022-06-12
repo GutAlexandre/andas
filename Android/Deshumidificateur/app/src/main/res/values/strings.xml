@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Deshumidificateur</string>
-    <string name="btn_power">Power button(on/off)</string>
-    <string name="switch_power_textOff">Off</string>
-    <string name="switch_power_textOn">On</string>
-    <string name="pwd">Password</string>
-    <string name="edit_txt_login">Login</string>
-</resources>
